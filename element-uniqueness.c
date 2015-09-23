@@ -51,17 +51,8 @@ void main () {
 		for(i=0;i<n;i++){
 			scanf("%d",&v[i]);
 		}
-		
-		for (i=0;i<n;i++){						// teste para ver se leu
-			printf ("\n%d",v[i]);
-		}
-		
+				
 		quicksort(v,0,n-1);						//ordenando o vetor com quick sort
-		
-		printf ("\n\nOrdenado:\n");				// teste para ver se ordenou
-		for (i=0;i<n;i++){
-			printf ("\n%d",v[i]);
-		}
 		
 		printf("\n\nOs valores que aparecem uma unica vez no seu vetor:\n\n");
 		
