@@ -10,4 +10,15 @@ void main () {
 	if(n<2){									//teste para valor abaixo de 2
 		printf("\nErro! Reinicie o programa e insira um valor maior que 1.\n");
 	}
+	
+	if (n>1){									//condicao para necessitar do algoritmo
+	
+		int *v;									// alocando memória para n elementos
+		v = (int*)malloc(n*sizeof(int));
+		
+		int i;									//lendo os n elementos
+		for(i=0;i<n;i++){
+			scanf("%d",&v[i]);
+		}
+	
 }
