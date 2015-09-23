@@ -39,7 +39,7 @@ void main () {
 	scanf ("%d",&n);
 	
 	if(n<1){									//teste para valor abaixo de 2
-	printf ("Entre com o valor de elementos a ser digitado em seguida, os valores do vetor.\n\n");
+	printf("\nErro! Reinicie o programa e insira um valor maior que 0.\n");
 	}
 	
 	if (n>0){									//condicao para necessitar do algoritmo
@@ -63,5 +63,36 @@ void main () {
 			printf ("\n%d",v[i]);
 		}
 		
+		printf("\n\nOs valores que aparecem uma unica vez no seu vetor:\n\n");
+		
+		int cont=0;								//variavel para analisar se existe elemento unico
+		
+		if(n==1){								//teste para casos em que a lista possui um unico elemento
+			printf("%d\n",v[0]);
+			cont++;
+		}
+		
+		if(v[0]!=v[1] && n>1){					//testa se o primeiro elemento é unico, casos n>1
+			printf("%d\n",v[0]);
+			cont++;
+		}
+		
+		for(i=1;i<n-1;i++){						//testa todos os elemntos do meio da lista, comparando com os vizinhos
+			if(v[i]!=v[i-1] && v[i]!=v[i+1]){
+				printf("%d\n",v[i]);
+				cont++;
+			}
+		}
+		
+		if(v[n-2]!=v[n-1] && n>1){				//testa o ultimo da lista, casos n>1
+			printf("%d\n",v[n-1]);
+			cont++;
+		}
+		
+		if(cont==0){							//quando cont = 0, não existe elemento unico
+			printf("O vetor nao possui valor unico.\n");
+		}
+		
+		free(v);								//liberando a memória utilizada
 	}
 }
