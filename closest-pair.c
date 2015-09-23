@@ -62,5 +62,15 @@ void main () {
 		for (i=0;i<n;i++){
 			printf ("\n%d",v[i]);
 		}
+		
+		int d,t;								//descobrir a menor distancia entre pares
+		d=v[1]-v[0];	
+		for(i=1;i<n-1;i++){
+			if(v[i+1]-v[i]<d){					//repete-se até acharmos o menor módulo de distancia
+				d=v[i+1]-v[i];	
+			}
+		}
+		
+		printf("\n\nMenor diferenca encontrada: %d\n",d);	//teste para conferir a menor distancia 
 	
 }
