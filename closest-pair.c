@@ -72,5 +72,16 @@ void main () {
 		}
 		
 		printf("\n\nMenor diferenca encontrada: %d\n",d);	//teste para conferir a menor distancia 
+		
+		printf("\nPares com diferenca %d entre si: \n\n", d);	
+		for(i=0;i<n-1;i++){						//localizando todos os pares com a menor distanca entre si					
+			if(v[i+1]-v[i]==d && i == 0){		//evitando imprimir pares iguais 
+				printf ("%d  %d\n",v[i],v[i+1]);
+			}
+			else if (v[i+1]-v[i]==d && v[i+1]!=v[i-1]){
+				printf ("%d  %d\n",v[i],v[i+1]);
+			}
+		}
+		free(v);								//liberando a memória utilizada
 	
 }
