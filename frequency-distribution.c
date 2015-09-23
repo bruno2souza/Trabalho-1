@@ -63,5 +63,23 @@ void main () {
 		for (i=0;i<n;i++){
 			printf ("\n%d",v[i]);
 		}
+			
+		int cont=1, contmax=1;					//vamos localizar a frequencia maxima presente no vetor
+		
+		if(n>1){
+			for(i=1;i<n;i++){
+				if(v[i-1]!=v[i]){					//recomeça o contador sempre que o valor seguinte for diferente do anterior
+					cont=1;
+				}
+				else if(v[i]==v[i-1]){				//verifica se o contador para o valor atual é maior que o do anterior
+					cont++;
+					if(cont>contmax){
+					contmax=cont;
+					}
+				}
+			}
+		}
+		
+		printf("\n\nFrequencia maxima: %d\n",contmax);	//teste
 	}
 }
