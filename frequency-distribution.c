@@ -35,7 +35,7 @@ void quicksort(int v[], int f, int l){ 		//funcao que ordena um vetor atraves do
 void main () {
 	
 	int n;										// ler quantidade n de elementos
-	printf ("Entre com o valor de elementos a ser digitado: ");
+	printf ("Entre com o valor de elementos a ser digitado em seguida, os valores do vetor.\n\n");
 	scanf ("%d",&n);
 	
 	if(n<1){									//teste para valor abaixo de 2
@@ -47,23 +47,13 @@ void main () {
 		int *v;									// alocando memória para n elementos
 		v = (int*)malloc(n*sizeof(int));
 		
-		printf("\nEntre com os valores inteiros do seu vetor:\n\n");
 		int i;									//lendo os n elementos
 		for(i=0;i<n;i++){
 			scanf("%d",&v[i]);
 		}
 		
-		for (i=0;i<n;i++){						// teste para ver se leu
-			printf ("\n%d",v[i]);
-		}
-		
 		quicksort(v,0,n-1);						//ordenando o vetor com quick sort
 		
-		printf ("\n\nOrdenado:\n");				// teste para ver se ordenou
-		for (i=0;i<n;i++){
-			printf ("\n%d",v[i]);
-		}
-			
 		int cont=1, contmax=1;					//vamos localizar a frequencia maxima presente no vetor
 		
 		if(n>1){
@@ -81,5 +71,31 @@ void main () {
 		}
 		
 		printf("\n\nFrequencia maxima: %d\n",contmax);	//teste
+		
+		printf("\nValor(es) mais repetido(s) no vetor:\n");
+		
+		if(n==1){									//vetor de um elemento
+			printf("\n%d",v[0]);
+		}
+		
+		cont=1;
+		if(n>1){
+			if(contmax==1){
+				printf("\n%d",v[0]);
+			}	
+			for(i=1;i<n;i++){
+				if(v[i-1]!=v[i]){					//busca valores que se repetem o numero de vezes do contador maximo
+					cont=1;
+				}
+				else if(v[i-1]==v[i]){				//quando o valor se repetir esse num de vezes, ele sera impresso na tela
+					cont++;
+				}
+				if(cont==contmax){
+					printf ("\n%d",v[i]);
+					}
+			}
+		}
+
+		free(v);								//liberando a memória utilizada
 	}
 }
