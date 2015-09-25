@@ -72,7 +72,7 @@ void main () {
 	
 	if (n>1){									//condicao para necessitar do algoritmo
 	
-		int *x,*y;									// alocando memória para n elementos
+		int *x,*y;								// alocando memória para n elementos
 		x = (int*)malloc(n*sizeof(int));
 		y = (int*)malloc(n*sizeof(int));
 		
@@ -82,10 +82,10 @@ void main () {
 			scanf("%d",&y[i]);
 		}
 			
-		quicksort2(x,y,0,n-1);						//ordenando o vetor com quick sort
+		quicksort2(x,y,0,n-1);					//ordenando o vetor com quick sort
 		
 		printf("\nOrdenado em X:\n\n");
-		for(i=0;i<n;i++){						//teste para ver se ordenou o vetor
+		for(i=0;i<n;i++){						//teste para ver se ordenou o vetor em x
 		printf("%d ",x[i]);
 		printf("%d\n",y[i]);
 		}
@@ -106,13 +106,12 @@ void main () {
 			}
 		}
 		
-			
-		
 		printf("\nOrdenado em Y:\n\n");
-		for(i=0;i<n;i++){						//teste para ver se ordenou o vetor
-		printf("%d ",x[i]);
+		for(i=0;i<n;i++){						//teste para ver se ordenou o vetor em Y
+		printf("%d ",x[i]); 
 		printf("%d\n",y[i]);
 		}
+		
 		
 		
 		free(x);
