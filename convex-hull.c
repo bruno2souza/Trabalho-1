@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<math.h>
 
 void troca(int v[], int p1, int p2){     	//funcao que troca os valores entre duas posicoes de um vetor
 	int t = v[p1];
@@ -60,6 +61,21 @@ void quicksort(int v[], int f, int l){ 		//funcao que ordena um vetor atraves do
 	quicksort(v,j+1,l);						//funcao recursiva para ordenar posicoes posteriores a p
 }
 
+float cosseno (int x[],int y[], i, j){
+	int deltax, deltay;
+	float modulo, cosseno;
+	deltax=x[j]-x[i];
+	deltay=y[j]-y[i];
+	if(deltay!=0){
+		modulo = sqrt(deltax*deltax+deltay*deltay);
+		cosseno = deltay/modulo;
+	}
+	else if(deltay==0){
+		cosseno = 0;
+	}
+	return cosseno;
+}
+
 void main () {
 	
 	int n;										// ler quantidade n de elementos
@@ -112,6 +128,12 @@ void main () {
 		printf("%d\n",y[i]);
 		}
 		
+		float cosmax;
+		for(i=0;i<n,i++){
+			for(j=i+1;j<n;j++){
+				
+			}
+		}
 		
 		
 		free(x);
