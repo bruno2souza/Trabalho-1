@@ -62,15 +62,12 @@ void quicksort(int v[], int f, int l){ 		//funcao que ordena um vetor atraves do
 }
 
 float cosseno(int x[],int y[],int i,int j){		//funcao que calcula o cosseno entre dois vetores
-	int deltax, deltay;
-	float modulo, cosseno;
-	deltax=x[j]-x[i];
-	deltay=y[j]-y[i];
-	if(deltay!=0){
-		modulo = sqrt(deltax*deltax+deltay*deltay);
-		cosseno = deltay/modulo;
+	float modulo, cosseno;						//sabendo que deltaX=x[j]-x[i] e deltaY=y[j]-y[i]	
+	if((y[j]-y[i])!=0){							//modulo do vetor é igual a raiz quadrada das somas dos quadrados de delta X e deltaY
+		modulo = sqrt((x[j]-x[i])*(x[j]-x[i])+(y[j]-y[i])*(y[j]-y[i]));
+		cosseno = (y[j]-y[i])/modulo;			//cosseno entre o vetor(0,1) e (deltaX,deltaY) = [(0,1).(deltaX,deltaY)]/[módulo de (0,1).módulo de (deltaX,deltaY)]
 	}
-	else if(deltay==0){
+	else if((y[j]-y[i])==0){
 		cosseno = 0;
 	}
 	return cosseno;
@@ -79,7 +76,7 @@ float cosseno(int x[],int y[],int i,int j){		//funcao que calcula o cosseno entr
 void main () {
 	
 	int n;										// ler quantidade n de elementos
-	printf ("Entre com o valor de elementos a ser digitado em seguida, os valores do vetor.\n\n");
+	printf ("Entre com o valor de pontos a ser digitado em seguida, os pontos do seu vetor.\n\n");
 	scanf ("%d",&n);
 	
 	if(n<2){									//teste para valor abaixo de 2
@@ -88,10 +85,10 @@ void main () {
 	
 	if (n>1){									//condicao para necessitar do algoritmo
 	
-		int *x,*y,*ch;								// alocando memória para n elementos
-		x = (int*)malloc(n*sizeof(int));
-		y = (int*)malloc(n*sizeof(int));
-		ch = (int*)calloc(n,sizeof(int));
+		int *x,*y,*ch;							// alocando memória para as 3 variaveis de um elemento
+		x = (int*)malloc(n*sizeof(int));		// x é a coordenada horizontal		
+		y = (int*)malloc(n*sizeof(int));		// y é a coordenada vertical
+		ch = (int*)calloc(n,sizeof(int));		//ch é o vetor que armazena se o ponto pertence ou não ao fecho convexo, valor inicial para todos=0
 		
 		int i;									//lendo os n elementos
 		for(i=0;i<n;i++){
@@ -99,73 +96,60 @@ void main () {
 			scanf("%d",&y[i]);
 		}
 			
-		quicksort2(x,y,0,n-1);					//ordenando o vetor com quick sort
-		
-		printf("\nOrdenado em X:\n\n");
-		for(i=0;i<n;i++){						//teste para ver se ordenou o vetor em x
-		printf("%d ",x[i]);
-		printf("%d\n",y[i]);
-		}
-		
+		quicksort2(x,y,0,n-1);					//ordenando o vetor em x com quick sort
 		
 		int j=0;								//ordenar y quando x for igual
 		for(i=0;i<n-1;i++){
-			if(x[i]==x[i+1]){ 
+			if(x[i]==x[i+1]){ 					//localiza blocos onde varios elemntos possuem o mesmo valor de x
 				j++;
 				if(i+1==n-1){
-					quicksort(y,i-j+1,i+1);
+					quicksort(y,i-j+1,i+1);		
 					j=0;
 				}
 			}
 			if(x[i]!=x[i+1]){
-				quicksort(y,i-j,i);
+				quicksort(y,i-j,i);				//ordena os valores de y dentro do bloco de valores iguais para x
 				j=0;
 			}
 		}
-		
-		printf("\nOrdenado em Y:\n\n");
-		for(i=0;i<n;i++){						//teste para ver se ordenou o vetor em Y
-		printf("%d ",x[i]); 
-		printf("%d\n",y[i]);
-		}
-		
-		int poscosmin,poscosmax;
-		float cosmin,cosmax;
-		
+				
+		int poscos;						//pegando o ponto inicial, usaremos o maior angulo para localizar o proximo ponto
+		float cosm;						//quando um angulo está no intervalo [0,180], quanto maior ele for, menor sera seu cosseno
+										//poscos = posicão do cosseno buscado, cosm=valor do cosseno buscado
 		i=0;
 		while(i<n-1){
-			cosmin=1.0;
-			poscosmin=i;
+			cosm=1.0;
+			poscos=i;
 			for(j=i+1;j<n;j++){
-				if(cosseno(x,y,i,j)<=cosmin){
-					cosmin=cosseno(x,y,i,j);
-					poscosmin=j;
+				if(cosseno(x,y,i,j)<=cosm){		//nesse caso buscamos o menor cosseno
+					cosm=cosseno(x,y,i,j);
+					poscos=j;
 				}				
 			}
-			ch[poscosmin]=1;
-			i=poscosmin;
+			ch[poscos]=1;				//quando um ponto pertence ao fecho, seu ch é mudado de zero para um
+			i=poscos;
 			
-		}
+		}								//a primeira parte gera a parte inferior do fecho entre o primeiro e o ultimo ponto
 		
 		i=n-1;
 		while(i>0){
-			cosmax=-1.0;
-			poscosmax=i;
+			cosm=-1.0;					//partindo agora do ultimo, buscamos fechar a parte superior
+			poscos=i;
 			for(j=i-1;j>=0;j--){
-				if(cosseno(x,y,i,j)>=cosmax){
-					cosmax=cosseno(x,y,i,j);
-					poscosmax=j;
+				if(cosseno(x,y,i,j)>=cosm){		//como mantemos o vetor comparacao para cima, mas estamos voltando, buscamos o menor angulo, ou seja, o maior cosseno
+					cosm=cosseno(x,y,i,j);
+					poscos=j;
 				}				
 			}
-			ch[poscosmax]=1;
-			i=poscosmax;
+			ch[poscos]=1;				//pontos do fecho recebem ch=1
+			i=poscos;
 			
 		}
 		
 		
 		
 		printf("\nPontos externos do fecho convexo:\n\n");
-		for(i=0;i<n;i++){						//imprime os pontos do fecho convexo
+		for(i=0;i<n;i++){						//imprime os pontos do fecho convexo, ou seja, pontos com ch=1
 			if(ch[i]==1){
 				printf("%d %d\n",x[i],y[i]);
 			}
