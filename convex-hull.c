@@ -61,7 +61,7 @@ void quicksort(int v[], int f, int l){ 		//funcao que ordena um vetor atraves do
 	quicksort(v,j+1,l);						//funcao recursiva para ordenar posicoes posteriores a p
 }
 
-float cosseno (int x[],int y[], i, j){
+float cosseno(int x[],int y[], i, j){		//funcao que calcula o cosseno entre dois vetores
 	int deltax, deltay;
 	float modulo, cosseno;
 	deltax=x[j]-x[i];
@@ -88,9 +88,10 @@ void main () {
 	
 	if (n>1){									//condicao para necessitar do algoritmo
 	
-		int *x,*y;								// alocando memória para n elementos
+		int *x,*y,*ch;								// alocando memória para n elementos
 		x = (int*)malloc(n*sizeof(int));
 		y = (int*)malloc(n*sizeof(int));
+		ch = (int*)calloc(n,sizeof(int));
 		
 		int i;									//lendo os n elementos
 		for(i=0;i<n;i++){
@@ -128,15 +129,51 @@ void main () {
 		printf("%d\n",y[i]);
 		}
 		
-		float cosmax;
-		for(i=0;i<n,i++){
+		int poscosmin,poscosmax;
+		float cosmin,cosmax;
+		
+		i=0;
+		while(i<n-1){
+			cosmin=1.0;
+			poscosmin=i;
 			for(j=i+1;j<n;j++){
-				
+				if(cosseno(x,y,i,j)<=cosmin){
+					cosmin=cos(x,y,i,j);
+					poscosmin=j;
+				}				
+			}
+			ch[poscosmin]=1;
+			i=poscosmin;
+			
+		}
+		
+		i=n-1;
+		while(i>0){
+			cosmax=-1.0;
+			poscosmax=i;
+			for(j=i-1;j>=0;j--){
+				if(cosseno(x,y,i,j)>=cosmax){
+					cosmax=cos(x,y,i,j);
+					poscosmax=j;
+				}				
+			}
+			ch[poscosmax]=1;
+			i=poscosmax;
+			
+		}
+		
+		
+		
+		
+		for(i=0;i<n;i++){						//imprime os pontos do fecho convexo
+			if(ch[i]==1){
+				printf("%d %d\n",x[i],y[i;])
 			}
 		}
 		
 		
 		free(x);
-		free(y);								//liberando a memória utilizada
+		free(y);	
+		free(ch);							//liberando a memória utilizada
 	}
 }
