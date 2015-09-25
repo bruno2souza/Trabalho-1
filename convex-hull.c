@@ -61,7 +61,7 @@ void quicksort(int v[], int f, int l){ 		//funcao que ordena um vetor atraves do
 	quicksort(v,j+1,l);						//funcao recursiva para ordenar posicoes posteriores a p
 }
 
-float cosseno(int x[],int y[], i, j){		//funcao que calcula o cosseno entre dois vetores
+float cosseno(int x[],int y[],int i,int j){		//funcao que calcula o cosseno entre dois vetores
 	int deltax, deltay;
 	float modulo, cosseno;
 	deltax=x[j]-x[i];
@@ -138,7 +138,7 @@ void main () {
 			poscosmin=i;
 			for(j=i+1;j<n;j++){
 				if(cosseno(x,y,i,j)<=cosmin){
-					cosmin=cos(x,y,i,j);
+					cosmin=cosseno(x,y,i,j);
 					poscosmin=j;
 				}				
 			}
@@ -153,7 +153,7 @@ void main () {
 			poscosmax=i;
 			for(j=i-1;j>=0;j--){
 				if(cosseno(x,y,i,j)>=cosmax){
-					cosmax=cos(x,y,i,j);
+					cosmax=cosseno(x,y,i,j);
 					poscosmax=j;
 				}				
 			}
@@ -164,10 +164,10 @@ void main () {
 		
 		
 		
-		
+		printf("\nPontos externos do fecho convexo:\n\n");
 		for(i=0;i<n;i++){						//imprime os pontos do fecho convexo
 			if(ch[i]==1){
-				printf("%d %d\n",x[i],y[i;])
+				printf("%d %d\n",x[i],y[i]);
 			}
 		}
 		
