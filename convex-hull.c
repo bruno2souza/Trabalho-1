@@ -146,9 +146,34 @@ void main () {
 			
 		}
 		
+		int k;							//essa parte remove alguns pontos colineares que não foram removidos na parte superior
+		for(i=0;i<n;i++){
+			if(ch[i]==1){				//pega apenas pontos do fecho
+				for(j=0;j<n;j++){
+					if(j!=i && ch[j]==1){
+						for(k=0;k<n;k++){
+							if(ch[k]==1 && k!=i && k!=j && cosseno(x,y,i,j)==-cosseno(x,y,i,k)){ 		//analisa se existem dois cossenos opostos,o que pode significar colinearidade
+								if(y[j]>=y[i] && y[k]<=y[i] && x[j]>=x[i] && x[k]<=x[i]){				//analisando por quadrantes, podemos definir se esses angulos são ou não de colineares
+									ch[i]=0;
+								}
+								if(y[j]>=y[i] && y[k]<=y[i] && x[j]<=x[i] && x[k]>=x[i]){
+									ch[i]=0;
+								}
+								if(y[j]<=y[i] && y[k]>=y[i] && x[j]>=x[i] && x[k]<=x[i]){
+									ch[i]=0;
+								}
+								if(y[j]<=y[i] && y[k]>=y[i] && x[j]<=x[i] && x[k]>=x[i]){
+									ch[i]=0;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 		
 		
-		printf("\nPontos externos do fecho convexo:\n\n");
+		printf("\nVertices do fecho convexo:\n\n");
 		for(i=0;i<n;i++){						//imprime os pontos do fecho convexo, ou seja, pontos com ch=1
 			if(ch[i]==1){
 				printf("%d %d\n",x[i],y[i]);
