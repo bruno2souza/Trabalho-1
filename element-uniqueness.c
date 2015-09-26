@@ -86,4 +86,5 @@ void main () {
 		
 		free(v);								//liberando a memória utilizada
 	}
+	getch();
 }
