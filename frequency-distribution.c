@@ -72,7 +72,7 @@ void main () {
 		
 		printf("\n\nFrequencia maxima: %d\n",contmax);	//teste
 		
-		printf("\nValor(es) mais repetido(s) no vetor:\n");
+		printf("\nValor(es) mais repetido(s) no vetor:\n\n");
 		
 		if(n==1){									//vetor de um elemento
 			printf("\n%d",v[0]);
@@ -91,11 +91,12 @@ void main () {
 					cont++;
 				}
 				if(cont==contmax){
-					printf ("\n%d",v[i]);
+					printf ("%d\n",v[i]);
 					}
 			}
 		}
 
 		free(v);								//liberando a memória utilizada
 	}
+	getch();
 }
