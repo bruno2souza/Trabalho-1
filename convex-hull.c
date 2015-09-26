@@ -185,4 +185,5 @@ void main () {
 		free(y);	
 		free(ch);							//liberando a memória utilizada
 	}
+	getch();
 }
